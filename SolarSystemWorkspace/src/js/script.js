@@ -1,9 +1,10 @@
 
 //space image http://www.capella-observatory.com/images/Galaxies/NGC678Big.jpg
 //dinasour from turbosquid 
+//could not find star model as glb so used a dino sorry :/
 
 import * as THREE from "three";
-import { DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, PointLight, SphereGeometry, Vector3 } from "three";
+import { DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, PointLight, SphereGeometry, TorusGeometry, Vector3 } from "three";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import myImage from '../img/NGC678Big.jpg'
@@ -62,7 +63,7 @@ scene.background = cubeLoader.load([myImage,myImage,myImage,myImage,myImage,myIm
 
 //#endregion
 
-const sunLight = new PointLight({color:0xffbf00}, 100, 100);
+const sunLight = new PointLight({color:0xffbf00}, 1, 1000);
 scene.add(sunLight);
 sunLight.position = new Vector3(0,0,0);
 
@@ -74,7 +75,7 @@ scene.add(sun);
 
 //#region mercury
 const mercObj = new Object3D();
-const mercuryGeo = new SphereGeometry(.5, 20, 20);
+const mercuryGeo = new SphereGeometry(.5, 10, 10);
 const mercuryMat = new MeshStandardMaterial({color:0x7c757e});
 const mercury = new Mesh(mercuryGeo, mercuryMat);
 mercObj.add(mercury);
@@ -86,8 +87,8 @@ scene.add(mercObj);
 
 //#region venus
 const venObj = new Object3D();
-const venusGeo = new SphereGeometry(2.3, 40, 40);
-const venusMat = new MeshStandardMaterial({color:0x7c757e});
+const venusGeo = new SphereGeometry(2.3, 10, 10);
+const venusMat = new MeshStandardMaterial({color:0xdeb887});
 const venus = new Mesh(venusGeo, venusMat);
 venObj.add(venus);
 venus.position.set(40, 0,0);
@@ -97,7 +98,7 @@ scene.add(venObj);
 
 //#region earth
 const earthObj = new Object3D();
-const earthGeo = new SphereGeometry(2, 40, 40);
+const earthGeo = new SphereGeometry(2, 10, 10);
 const earthMat = new MeshStandardMaterial({color:0x9ab762});
 const earth = new Mesh(earthGeo, earthMat);
 
@@ -106,9 +107,12 @@ const earthSpeed = .33;
 
 const moonObj = new Object3D();
 //moonObj.position.set(60, 0,0);
-const moonGeo = new SphereGeometry(.8, 20, 20);
+const moonGeo = new SphereGeometry(.8, 10, 10);
 const moonMat = new MeshStandardMaterial({color:0xffffff});
 const moon = new Mesh(moonGeo, moonMat);
+
+const moonLight = new PointLight({color:0xffbf00}, .6, 10);
+moon.add(moonLight);
 
 moon.position.set(5, 0, 0);
 const moonSpeed = 2;
@@ -121,7 +125,7 @@ scene.add(earthObj);
 
 //#region mars
 const marsObj = new Object3D();
-const marsGeo = new SphereGeometry(1.8, 40, 40);
+const marsGeo = new SphereGeometry(1.8, 10, 10);
 const marsMat = new MeshStandardMaterial({color:0xff852b});
 const mars = new Mesh(marsGeo, marsMat);
 marsObj.add(mars);
@@ -130,6 +134,74 @@ const marsSpeed = .45;
 scene.add(marsObj);
 //#endregion
 
+//#region jupiter
+const jupiterObj = new Object3D();
+const jupiterGeo = new SphereGeometry(6, 10, 10);
+const jupiterMat = new MeshStandardMaterial({color:0xff852b});
+const jupiter = new Mesh(jupiterGeo, jupiterMat);
+jupiterObj.add(jupiter);
+jupiter.position.set(100, 0,0);
+const jupiterSpeed = .26;
+scene.add(jupiterObj);
+//#endregion
+
+//#region saturn
+const saturnObj = new Object3D();
+const saturnGeo = new SphereGeometry(5, 40, 40);
+const saturnMat = new MeshStandardMaterial({color:0xe5d0b1});
+const saturn = new Mesh(saturnGeo, saturnMat);
+saturnObj.add(saturn);
+saturn.position.set(120, 0,0);
+const saturnSpeed = .13;
+
+
+const ring1Geo = new TorusGeometry(6, .2, 40, 40);
+const ring2Geo = new TorusGeometry(7, .2, 40, 40);
+const ring3Geo = new TorusGeometry(8, .2, 40, 40);
+const ringMat = new MeshStandardMaterial({color:0xb0e0e6});
+const ring1 = new Mesh(ring1Geo, ringMat);
+const ring2 = new Mesh(ring2Geo, ringMat);
+const ring3 = new Mesh(ring3Geo, ringMat);
+
+
+saturn.add(ring1);
+saturn.add(ring2);
+saturn.add(ring3);
+scene.add(saturnObj);
+//#endregion
+
+//#region uranus
+const uranusObj = new Object3D();
+const uranusGeo = new SphereGeometry(3.5, 10, 10);
+const uranusMat = new MeshStandardMaterial({color:0x87b3d6});
+const uranus = new Mesh(uranusGeo, uranusMat);
+uranusObj.add(uranus);
+uranus.position.set(140, 0,0);
+const uranusSpeed = .17;
+scene.add(uranusObj);
+//#endregion
+
+//#region neptune
+const neptuneObj = new Object3D();
+const neptuneGeo = new SphereGeometry(3, 10, 10);
+const neptuneMat = new MeshStandardMaterial({color:0x9fb6cd});
+const neptune = new Mesh(neptuneGeo, neptuneMat);
+neptuneObj.add(neptune);
+neptune.position.set(160, 0,0);
+const neptuneSpeed = .14;
+scene.add(neptuneObj);
+//#endregion
+
+//#region pluto
+const plutoObj = new Object3D();
+const plutoGeo = new SphereGeometry(.9, 10, 10);
+const plutoMat = new MeshStandardMaterial({color:0x9fb6cd});
+const pluto = new Mesh(plutoGeo, plutoMat);
+plutoObj.add(pluto);
+pluto.position.set(180, 0,0);
+const plutoSpeed = .1;
+scene.add(plutoObj);
+//#endregion
 
 function animate(time){
 
@@ -140,7 +212,26 @@ function animate(time){
     moonObj.rotation.y = (moonSpeed * time/1000);
     moonObj.rotation.x = (moonSpeed/2.5 * time/1000);
     marsObj.rotation.y = (marsSpeed * time/1000);
-    
+    jupiterObj.rotation.y = (jupiterSpeed * time/1000);
+    saturnObj.rotation.y =(saturnSpeed * time/1000);
+    uranusObj.rotation.y = (uranusSpeed * time/1000);
+    neptuneObj.rotation.y = (neptuneSpeed * time/1000);
+    plutoObj.rotation.y = (plutoSpeed * time/1000);
+
+    saturn.rotation.x = (saturnSpeed * time/1000);
+    ring2.rotation.x = (saturnSpeed/.3 * time/1000);
+    ring1.rotation.y = (saturnSpeed/.25 * time/1000);
+
+    mercury.rotation.y = (mercSpeed * time/1000);
+    venus.rotation.z = (venusSpeed * time/1000);
+    earth.rotation.y = (earthSpeed * time/1000);
+    mars.rotation.y = (marsSpeed * time/1000);
+    jupiter.rotation.y = (jupiterSpeed * time/1000);
+    saturn.rotation.z = (saturnSpeed * time/1000);
+    neptune.rotation.x = (neptuneSpeed * time/1000);
+    uranus.rotation.x = (uranusSpeed * time/1000);
+    pluto.rotation.z = (plutoSpeed * time/1000);
+
     renderer.render(scene, camera);
 }
 
