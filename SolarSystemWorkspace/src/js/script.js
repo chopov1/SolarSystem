@@ -67,11 +67,14 @@ const sunLight = new PointLight({color:0xffbf00}, 1, 1000);
 scene.add(sunLight);
 sunLight.position = new Vector3(0,0,0);
 
-const sunGeo = new SphereGeometry(10, 20, 20);
+const sunGeo = new SphereGeometry(10, 50, 50);
 const sunMat = new MeshBasicMaterial({color:0xffbf00});
 const sun = new Mesh(sunGeo, sunMat);
 sun.position = new Vector3(0,0,0);
 scene.add(sun);
+sun.material.wireframe = false;
+
+const lastZPos = sun.geometry.attributes.position.array.length-1;
 
 //#region mercury
 const mercObj = new Object3D();
@@ -231,6 +234,18 @@ function animate(time){
     neptune.rotation.x = (neptuneSpeed * time/1000);
     uranus.rotation.x = (uranusSpeed * time/1000);
     pluto.rotation.z = (plutoSpeed * time/1000);
+
+    for(var j = 0; j < sun.geometry.attributes.position.array.length; j+=4){
+        
+            sun.geometry.attributes.position.array[j+0] = 2 * Math.random();
+            //sun.geometry.attributes.position.array[j+1] += 5 * Math.random();
+            //sun.geometry.attributes.position.array[j+2] += 5 * Math.random();
+        
+            sun.geometry.attributes.position.array[lastZPos] = 5 * Math.random();
+        
+            sun.geometry.attributes.position.needsUpdate = true;
+        
+    }
 
     renderer.render(scene, camera);
 }
